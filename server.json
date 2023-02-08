@@ -1,0 +1,60 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "description": "Web development",
+      "type": "income",
+      "category": "Sales",
+      "price": 2000,
+      "createdAt": "2023-02-08T08:26:19.446Z"
+    },
+    {
+      "id": 2,
+      "description": "Groceries",
+      "type": "expense",
+      "category": "Food",
+      "price": 120,
+      "createdAt": "2023-02-08T08:28:00.796Z"
+    },
+    {
+      "description": "App",
+      "type": "income",
+      "category": "Sale",
+      "price": 1000,
+      "createdAt": "2023-02-08T11:54:38.002Z",
+      "id": 3
+    },
+    {
+      "description": "Drawing Tablet",
+      "type": "income",
+      "category": "Tools",
+      "price": 20,
+      "createdAt": "2023-02-08T11:57:56.193Z",
+      "id": 4
+    },
+    {
+      "description": "Fruit",
+      "type": "income",
+      "category": "Food",
+      "price": 10,
+      "createdAt": "2023-02-08T11:58:24.225Z",
+      "id": 5
+    },
+    {
+      "description": "Coffee",
+      "type": "expense",
+      "category": "Food",
+      "price": 10,
+      "createdAt": "2023-02-08T12:01:03.113Z",
+      "id": 6
+    },
+    {
+      "description": "Candles",
+      "type": "expense",
+      "category": "House",
+      "price": 2,
+      "createdAt": "2023-02-08T12:11:00.519Z",
+      "id": 7
+    }
+  ]
+}

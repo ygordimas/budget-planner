@@ -1,26 +1,28 @@
+import { useContext, useEffect, useState } from "react";
+import { TransactionsContext } from "../../contexts/TransactionsContext";
+import { dateFormatter, priceFormatter } from "../../utils/formatter";
 import { PriceHightlight, StyledTable } from "./styles";
 
 export function TransactionsTable() {
+  const { transactions } = useContext(TransactionsContext);
   return (
     <>
       <StyledTable>
         <tbody>
-          <tr>
-            <td>Web Development</td>
-            <td>
-              <PriceHightlight variant="income">$ 12.000,00</PriceHightlight>
-            </td>
-            <td>Sale</td>
-            <td>13/04/2022</td>
-          </tr>
-          <tr>
-            <td>Hamburguer</td>
-            <td>
-              <PriceHightlight variant="expense">-$ 54,00</PriceHightlight>
-            </td>
-            <td>Purchase</td>
-            <td>10/04/2022</td>
-          </tr>
+          {transactions.map((transaction) => (
+            <tr key={transaction.id}>
+              <td>{transaction.description}</td>
+              <td>
+                <PriceHightlight variant={transaction.type}>
+                  {transaction.type == "income"
+                    ? `${priceFormatter.format(transaction.price)}`
+                    : `- ${priceFormatter.format(transaction.price)}`}
+                </PriceHightlight>
+              </td>
+              <td>{transaction.category}</td>
+              <td>{dateFormatter.format(new Date(transaction.createdAt))}</td>
+            </tr>
+          ))}
         </tbody>
       </StyledTable>
     </>
