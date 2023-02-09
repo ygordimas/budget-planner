@@ -14,10 +14,12 @@ export const StyledSearchForm = styled.form`
 
     border: none;
     background-color: ${(props) => props.theme["gray-700"]};
-
+    color: ${(props) => props.theme["gray-100"]};
     ::placeholder {
       color: ${(props) => props.theme["gray-500"]};
     }
+
+    caret-color: ${(props) => props.theme["green-300"]};
   }
 
   button {
@@ -27,6 +29,7 @@ export const StyledSearchForm = styled.form`
     background-color: transparent;
     border: 1px solid ${(props) => props.theme["green-300"]};
     color: ${(props) => props.theme["green-300"]};
+    background-color: ${(props) => props.theme["gray-100"]};
     font-weight: 600;
     cursor: pointer;
 

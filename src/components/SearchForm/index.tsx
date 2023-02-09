@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import { StyledSearchForm } from "./styles";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { TransactionsContext } from "../../contexts/TransactionsContext";
+import { useContextSelector } from "use-context-selector";
+import { AxiosResponse } from "axios";
 
 const searchFormSchema = z.object({
   query: z.string(),
@@ -13,8 +15,21 @@ const searchFormSchema = z.object({
 type SearchFormInputs = z.infer<typeof searchFormSchema>;
 
 export function SearchForm() {
-  const { fetchTransactions } = useContext(TransactionsContext);
+  const transactions = useContextSelector(TransactionsContext, (context) => {
+    return context.transactions;
+  });
+  const fetchTransactions: (query?: string) => Promise<void> =
+    useContextSelector(TransactionsContext, (context) => {
+      return context.fetchTransactions;
+    });
+  const filterTransactions: (query: string) => void = useContextSelector(
+    TransactionsContext,
+    (context) => {
+      return context.filterTransactions;
+    }
+  );
   const {
+    watch,
     register,
     handleSubmit,
     formState: { isSubmitting },
@@ -22,20 +37,23 @@ export function SearchForm() {
     resolver: zodResolver(searchFormSchema),
   });
 
-  function handleSearchTransactions(data: SearchFormInputs) {
-    console.log(data);
-  }
+  const searchInput = watch("query");
+
+  useEffect(() => {
+    filterTransactions(searchInput);
+  }, [searchInput]);
+
   return (
     <>
-      <StyledSearchForm onSubmit={handleSubmit(handleSearchTransactions)}>
+      <StyledSearchForm>
         <input
           type="text"
-          placeholder="Search transaction(s)"
+          placeholder="Search transaction(s) by description"
           {...register("query")}
         />
-        <button type="submit" disabled={isSubmitting}>
+        {/* <button type="submit" disabled={isSubmitting}>
           <MagnifyingGlass size={20} /> Search
-        </button>
+        </button> */}
       </StyledSearchForm>
     </>
   );

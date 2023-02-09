@@ -8,6 +8,7 @@ export const Overlay = styled(Dialog.Overlay)`
   height: 100vh;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.75);
+  z-index: 3;
 `;
 
 export const Content = styled(Dialog.Content)`
@@ -15,7 +16,7 @@ export const Content = styled(Dialog.Content)`
   border-radius: 6px;
   padding: 2.5rem 3rem;
   background-color: ${(props) => props.theme["gray-800"]};
-
+  z-index: 3;
   position: fixed;
   top: 50%;
   left: 50%;

@@ -15,7 +15,7 @@ export function Header() {
       <StyledHeader>
         <Logo>
           <Wallet size={32} className="icon" />
-          <span>Budger Planner</span>
+          <span>Budget Planner</span>
         </Logo>
 
         <Dialog.Root>

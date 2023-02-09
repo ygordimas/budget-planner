@@ -1,4 +1,6 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { AxiosResponse } from "axios";
+import { ReactNode, useCallback, useEffect, useState } from "react";
+import { createContext } from "use-context-selector";
 import { api } from "../lib/axios";
 
 interface Transaction {
@@ -21,6 +23,10 @@ interface TransactionContextType {
   transactions: Transaction[];
   fetchTransactions: () => Promise<void>;
   createNewTransaction: (data: CreateNewTransactionProps) => Promise<void>;
+  filteredTransactions: Transaction[];
+  setFilteredTransactions: React.Dispatch<React.SetStateAction<Transaction[]>>;
+  filterTransactions: (query: string) => void;
+  isSearching: boolean;
 }
 
 interface TransactionProviderProps {
@@ -31,38 +37,66 @@ export const TransactionsContext = createContext({} as TransactionContextType);
 
 export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  // prettier-ignore
+  const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([]);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
-  async function fetchTransactions(query?: string) {
-    const response = await api.get("/transactions", {
-      params: {
-        _sort: "createdAt",
-        _order: "desc",
-        q: query,
-      },
-    });
+  const fetchTransactions = useCallback(
+    async (query?: string): Promise<void> => {
+      const response = await api.get("/transactions", {
+        params: {
+          _sort: "createdAt",
+          _order: "desc",
 
-    setTransactions(response.data);
-  }
+          q: query,
+        },
+      });
 
-  async function createNewTransaction(data: CreateNewTransactionProps) {
-    const { description, type, category, price } = data;
-    const response = await api.post("/transactions", {
-      description,
-      type,
-      category,
-      price,
-      createdAt: new Date(),
-    });
+      setTransactions(response.data);
+    },
+    []
+  );
 
-    setTransactions((state) => [response.data, ...state]);
-  }
+  const createNewTransaction = useCallback(
+    async (data: CreateNewTransactionProps) => {
+      const { description, type, category, price } = data;
+      const response = await api.post("/transactions", {
+        description,
+        type,
+        category,
+        price,
+        createdAt: new Date(),
+      });
+
+      setTransactions((state) => [response.data, ...state]);
+    },
+    []
+  );
+
+  const filterTransactions = (query: string) => {
+    query ? setIsSearching(true) : setIsSearching(false);
+    const filtered = transactions.filter((transaction) =>
+      transaction.description.toLowerCase().includes(query.toLowerCase())
+    );
+
+    setFilteredTransactions([...filtered]);
+  };
 
   useEffect(() => {
     fetchTransactions();
-  }, []);
+  }, [fetchTransactions]);
+
   return (
     <TransactionsContext.Provider
-      value={{ transactions, fetchTransactions, createNewTransaction }}
+      value={{
+        transactions,
+        filteredTransactions,
+        filterTransactions,
+        fetchTransactions,
+        createNewTransaction,
+        setFilteredTransactions,
+        isSearching,
+      }}
     >
       {children}
     </TransactionsContext.Provider>
