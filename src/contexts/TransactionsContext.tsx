@@ -27,6 +27,7 @@ interface TransactionContextType {
   setFilteredTransactions: React.Dispatch<React.SetStateAction<Transaction[]>>;
   filterTransactions: (query: string) => void;
   isSearching: boolean;
+  deleteTransaction: (id: number) => void;
 }
 
 interface TransactionProviderProps {
@@ -73,6 +74,14 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
     []
   );
 
+  const deleteTransaction = useCallback(async (id: number) => {
+    await api.delete(`/transactions/${id}`);
+
+    setTransactions((prev) =>
+      prev.filter((transaction) => transaction.id !== id)
+    );
+  }, []);
+
   const filterTransactions = (query: string) => {
     query ? setIsSearching(true) : setIsSearching(false);
     const filtered = transactions.filter((transaction) =>
@@ -96,6 +105,7 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
         createNewTransaction,
         setFilteredTransactions,
         isSearching,
+        deleteTransaction,
       }}
     >
       {children}

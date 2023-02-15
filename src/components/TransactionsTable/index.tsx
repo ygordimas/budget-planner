@@ -24,11 +24,12 @@ export function TransactionsTable() {
     return context.isSearching;
   });
 
-  // useEffect(() => {
-  //   if (filteredTransactions.length == 0) {
-  //     setFilteredTransactions([...transactions]);
-  //   }
-  // }, [filteredTransactions]);
+  const deleteTransaction = useContextSelector(
+    TransactionsContext,
+    (context) => {
+      return context.deleteTransaction;
+    }
+  );
 
   return (
     <>
@@ -64,6 +65,11 @@ export function TransactionsTable() {
                   <td>{transaction.category}</td>
                   <td>
                     {dateFormatter.format(new Date(transaction.createdAt))}
+                  </td>
+                  <td>
+                    <button onClick={() => deleteTransaction(transaction.id)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
