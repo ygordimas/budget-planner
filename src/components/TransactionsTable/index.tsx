@@ -31,6 +31,13 @@ export function TransactionsTable() {
     }
   );
 
+  const deleteAllTransactions = useContextSelector(
+    TransactionsContext,
+    (context) => {
+      return context.deleteAllTransactions;
+    }
+  );
+
   return (
     <>
       <StyledTable>
@@ -75,6 +82,9 @@ export function TransactionsTable() {
               ))}
         </tbody>
       </StyledTable>
+      <button onClick={() => deleteAllTransactions(transactions)}>
+        Delete All
+      </button>
     </>
   );
 }

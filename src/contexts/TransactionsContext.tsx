@@ -28,6 +28,7 @@ interface TransactionContextType {
   filterTransactions: (query: string) => void;
   isSearching: boolean;
   deleteTransaction: (id: number) => void;
+  deleteAllTransactions: (transactions: Transaction[]) => void;
 }
 
 interface TransactionProviderProps {
@@ -82,6 +83,13 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
     );
   }, []);
 
+  const deleteAllTransactions = useCallback((transactions: Transaction[]) => {
+    const transactionsArray = [...transactions];
+    transactionsArray.forEach((transaction) =>
+      deleteTransaction(transaction.id)
+    );
+  }, []);
+
   const filterTransactions = (query: string) => {
     query ? setIsSearching(true) : setIsSearching(false);
     const filtered = transactions.filter((transaction) =>
@@ -106,6 +114,7 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
         setFilteredTransactions,
         isSearching,
         deleteTransaction,
+        deleteAllTransactions,
       }}
     >
       {children}

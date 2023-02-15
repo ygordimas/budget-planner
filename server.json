@@ -1,36 +1,52 @@
 {
   "transactions": [
     {
-      "id": 1,
       "description": "Web development",
       "type": "income",
-      "category": "Sales",
-      "price": 2000,
-      "createdAt": "2023-02-08T08:26:19.446Z"
+      "category": "Freelance",
+      "price": 1000,
+      "createdAt": "2023-02-15T09:46:57.666Z",
+      "id": 1
     },
     {
-      "id": 2,
-      "description": "Groceries",
+      "description": "Scented candles",
+      "type": "expense",
+      "category": "Home",
+      "price": 3,
+      "createdAt": "2023-02-15T09:47:09.887Z",
+      "id": 2
+    },
+    {
+      "description": "Coffee",
       "type": "expense",
       "category": "Food",
-      "price": 120,
-      "createdAt": "2023-02-08T08:28:00.796Z"
+      "price": 10,
+      "createdAt": "2023-02-15T09:47:52.884Z",
+      "id": 3
     },
     {
       "description": "App",
       "type": "income",
-      "category": "Sale",
-      "price": 1000,
-      "createdAt": "2023-02-08T11:54:38.002Z",
-      "id": 3
+      "category": "Freelance",
+      "price": 800,
+      "createdAt": "2023-02-15T09:48:08.833Z",
+      "id": 4
     },
     {
-      "description": "Drawing Tablet",
+      "description": "Fruit salad",
+      "type": "expense",
+      "category": "Food",
+      "price": 2,
+      "createdAt": "2023-02-15T09:48:24.320Z",
+      "id": 5
+    },
+    {
+      "description": "Art prints",
       "type": "income",
-      "category": "Tools",
-      "price": 20,
-      "createdAt": "2023-02-08T11:57:56.193Z",
-      "id": 4
+      "category": "Artwork",
+      "price": 60,
+      "createdAt": "2023-02-15T09:48:50.879Z",
+      "id": 6
     }
   ]
 }
