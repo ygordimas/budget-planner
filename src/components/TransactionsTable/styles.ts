@@ -21,6 +21,38 @@ export const StyledTable = styled.table`
   }
 `;
 
+export const DeleteButton = styled.button`
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+  background-color: transparent;
+  color: ${(props) => props.theme["gray-500"]};
+  border-color: ${(props) => props.theme["gray-500"]};
+  border-style: solid;
+
+  &:hover {
+    background-color: ${(props) => props.theme["red-300"]};
+    color: ${(props) => props.theme["gray-900"]};
+    border-color: transparent;
+    transition: all 0.2s;
+  }
+`;
+
+export const DeleteAllButton = styled.button`
+  padding: 0.8rem;
+  margin: 1rem 0;
+  border-radius: 0.4rem;
+  background-color: ${(props) => props.theme["red-500"]};
+  border-color: transparent;
+  border-style: solid;
+  color: ${(props) => props.theme["gray-100"]};
+
+  &:hover {
+    background-color: ${(props) => props.theme["red-300"]};
+    color: ${(props) => props.theme["gray-900"]};
+    transition: all 0.2s;
+  }
+`;
+
 interface PriceHightlightProps {
   variant: "income" | "expense";
 }

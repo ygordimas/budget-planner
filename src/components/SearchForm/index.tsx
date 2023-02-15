@@ -45,16 +45,15 @@ export function SearchForm() {
 
   return (
     <>
-      <StyledSearchForm>
-        <input
-          type="text"
-          placeholder="Search transaction(s) by description"
-          {...register("query")}
-        />
-        {/* <button type="submit" disabled={isSubmitting}>
-          <MagnifyingGlass size={20} /> Search
-        </button> */}
-      </StyledSearchForm>
+      {transactions.length > 0 && (
+        <StyledSearchForm>
+          <input
+            type="text"
+            placeholder="Search transaction(s) by description"
+            {...register("query")}
+          />
+        </StyledSearchForm>
+      )}
     </>
   );
 }

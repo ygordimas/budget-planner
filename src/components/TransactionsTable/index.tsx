@@ -2,7 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { useContextSelector } from "use-context-selector";
 import { TransactionsContext } from "../../contexts/TransactionsContext";
 import { dateFormatter, priceFormatter } from "../../utils/formatter";
-import { PriceHightlight, StyledTable } from "./styles";
+import {
+  DeleteAllButton,
+  DeleteButton,
+  PriceHightlight,
+  StyledTable,
+} from "./styles";
 
 export function TransactionsTable() {
   const transactions = useContextSelector(TransactionsContext, (context) => {
@@ -74,17 +79,21 @@ export function TransactionsTable() {
                     {dateFormatter.format(new Date(transaction.createdAt))}
                   </td>
                   <td>
-                    <button onClick={() => deleteTransaction(transaction.id)}>
+                    <DeleteButton
+                      onClick={() => deleteTransaction(transaction.id)}
+                    >
                       Delete
-                    </button>
+                    </DeleteButton>
                   </td>
                 </tr>
               ))}
         </tbody>
       </StyledTable>
-      <button onClick={() => deleteAllTransactions(transactions)}>
-        Delete All
-      </button>
+      {transactions.length > 0 && (
+        <DeleteAllButton onClick={() => deleteAllTransactions(transactions)}>
+          Delete All
+        </DeleteAllButton>
+      )}
     </>
   );
 }
